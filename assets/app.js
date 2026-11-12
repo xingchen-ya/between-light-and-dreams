@@ -4,6 +4,10 @@
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const styles = { cinematic: '电影感', dreamscape: '梦幻艺术' };
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  reducedMotion.addEventListener('change', event => {
+    if (event.matches) $('#lightbox-image')?.getAnimations().forEach(animation => animation.cancel());
+  });
   const menu = $('.menu-toggle');
   const nav = $('#primary-nav');
   const closeMenu = () => { menu?.setAttribute('aria-expanded', 'false'); nav?.removeAttribute('data-open'); };
@@ -82,6 +86,7 @@
     $('#reset-filter').hidden = filter === 'all' || works.length === 0;
     grid.replaceChildren(...visible.map((work, index) => {
       const card = document.createElement('article'); card.className = 'work-card';
+      card.style.setProperty('--card-index', String(index));
       const button = document.createElement('button'); button.type = 'button'; button.className = 'work-open';
       button.setAttribute('aria-label', `打开写真：${work.title}，${styles[work.style]}`);
       button.setAttribute('aria-haspopup', 'dialog');
@@ -147,8 +152,17 @@
   $('#lightbox-prev')?.addEventListener('click', () => step(-1));
   $('#lightbox-next')?.addEventListener('click', () => step(1));
   $('#lightbox-image')?.addEventListener('error', () => { $('#lightbox-image').hidden = true; $('#lightbox-image-error').hidden = false; });
+  $('#lightbox-image')?.addEventListener('load', event => {
+    const image = event.currentTarget;
+    image.getAnimations().forEach(animation => animation.cancel());
+    if (dialog.open && !reducedMotion.matches) image.animate(
+      [{ opacity: .35, transform: 'scale(.985)' }, { opacity: 1, transform: 'scale(1)' }],
+      { duration: 360, easing: 'cubic-bezier(.2,.7,.2,1)' }
+    );
+  });
   dialog?.addEventListener('close', () => {
     document.body.classList.remove('modal-open');
+    $('#lightbox-image').getAnimations().forEach(animation => animation.cancel());
     $('#lightbox-image').removeAttribute('src');
     const url = new URL(location.href);
     if (url.searchParams.has('work')) { url.searchParams.delete('work'); history.replaceState(null, '', url); }

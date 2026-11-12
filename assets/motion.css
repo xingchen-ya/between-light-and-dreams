@@ -1,0 +1,31 @@
+/* One entrance, quiet interaction feedback, no autoplay or scroll hijacking. */
+@keyframes portrait-enter{from{opacity:.65;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}
+@keyframes copy-enter{from{opacity:.4;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes work-enter{from{opacity:.45;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes menu-enter{from{opacity:.5;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.hero-copy{animation:copy-enter 800ms var(--ease) both}
+.hero-photo{animation:portrait-enter 1200ms var(--ease) both;transform-origin:60% 35%}
+.gallery-intro,.about-heading{animation:copy-enter 650ms var(--ease) both}
+.work-card{animation:work-enter 420ms var(--ease) both;animation-delay:calc(min(var(--card-index,0),3)*45ms)}
+.selected-work a{transition:transform 350ms var(--ease)}
+.selected-work h3{transition:color 240ms ease}
+.selected-photo img,.work-image{transition:transform 650ms var(--ease),filter 450ms ease}
+.button,.icon-button{transition:background 220ms ease,color 220ms ease,transform 220ms var(--ease),border-color 220ms ease}
+@media(hover:hover) and (pointer:fine){
+  .selected-work a:hover{transform:translateY(-3px)}
+  .selected-work a:hover img,.work-open:hover .work-image{transform:scale(1.045)}
+}
+@media(max-width:600px){#primary-nav[data-open=true]{animation:menu-enter 220ms var(--ease) both}}
+/* Modern browsers retain the top layer during the short native-dialog exit. */
+@supports(transition-behavior:allow-discrete){
+  .lightbox{opacity:0;transition:opacity 200ms ease,display 200ms allow-discrete,overlay 200ms allow-discrete}
+  .lightbox[open]{opacity:1}
+  .lightbox::backdrop{opacity:0;transition:opacity 200ms ease,display 200ms allow-discrete,overlay 200ms allow-discrete}
+  .lightbox[open]::backdrop{opacity:1}
+  @starting-style{.lightbox[open],.lightbox[open]::backdrop{opacity:0}}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .hero-photo,.hero-copy,.work-card,.gallery-intro,.about-heading{transform:none;opacity:1}
+  .selected-work a:hover,.selected-work a:hover img,.work-open:hover,.work-open:hover .work-image{transform:none}
+}
