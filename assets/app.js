@@ -66,6 +66,7 @@
     if (push) {
       const url = new URL(location.href);
       if (filter === 'all') url.searchParams.delete('style'); else url.searchParams.set('style', filter);
+      url.searchParams.delete('work');
       history.pushState(null, '', url);
     }
     render();
@@ -115,6 +116,10 @@
       works = data.works;
       loadState = 'ready';
       paintCovers(); render();
+      if ($('#selected-count')) $('#selected-count').textContent = `共 ${works.length} 件作品`;
+      const requested = new URLSearchParams(location.search).get('work');
+      const requestedIndex = visible.findIndex(work => work.id === requested);
+      if (grid && requestedIndex >= 0) openWork(requestedIndex, $$('.work-open', grid)[requestedIndex]);
     } catch {
       loadState = 'error';
       if (!grid) return;
@@ -142,7 +147,13 @@
   $('#lightbox-prev')?.addEventListener('click', () => step(-1));
   $('#lightbox-next')?.addEventListener('click', () => step(1));
   $('#lightbox-image')?.addEventListener('error', () => { $('#lightbox-image').hidden = true; $('#lightbox-image-error').hidden = false; });
-  dialog?.addEventListener('close', () => { document.body.classList.remove('modal-open'); $('#lightbox-image').removeAttribute('src'); trigger?.focus({ preventScroll: true }); });
+  dialog?.addEventListener('close', () => {
+    document.body.classList.remove('modal-open');
+    $('#lightbox-image').removeAttribute('src');
+    const url = new URL(location.href);
+    if (url.searchParams.has('work')) { url.searchParams.delete('work'); history.replaceState(null, '', url); }
+    trigger?.focus({ preventScroll: true });
+  });
   dialog?.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); step(e.key === 'ArrowRight' ? 1 : -1); }
     if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); selected = e.key === 'Home' ? 0 : visible.length - 1; showWork(); }
