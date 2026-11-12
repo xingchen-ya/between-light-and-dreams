@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "works": [
+    {
+      "id": "01-rain-window-portrait",
+      "style": "cinematic",
+      "title": "雨窗侧光人像",
+      "alt": "黑衣人物靠在雨窗旁，侧光照亮面部，背景为灰绿色窗景。",
+      "src": "assets/portraits/01-rain-window-portrait.webp",
+      "thumbnail": "assets/portraits/01-rain-window-portrait-thumb.webp",
+      "width": 1046,
+      "height": 1504,
+      "kind": "generated-art-portrait",
+      "approved": true
+    },
+    {
+      "id": "01-moonlit-floral-room",
+      "style": "dreamscape",
+      "title": "月下花房与白衣人像",
+      "alt": "白衣人物坐在月光花房中，周围有藤蔓、花朵与漂浮书页。",
+      "src": "assets/portraits/01-moonlit-floral-room.webp",
+      "thumbnail": "assets/portraits/01-moonlit-floral-room-thumb.webp",
+      "width": 1199,
+      "height": 1312,
+      "kind": "generated-art-portrait",
+      "approved": true
+    },
+    {
+      "id": "02-pink-blossom-portrait",
+      "style": "dreamscape",
+      "title": "粉色花海人像",
+      "alt": "粉色礼服人物置身柔光花海，花瓣与暖色光点环绕。",
+      "src": "assets/portraits/02-pink-blossom-portrait.webp",
+      "thumbnail": "assets/portraits/02-pink-blossom-portrait-thumb.webp",
+      "width": 1122,
+      "height": 1402,
+      "kind": "generated-art-portrait",
+      "approved": true
+    },
+    {
+      "id": "03-moonlit-black-coat",
+      "style": "dreamscape",
+      "title": "月下花房黑衣人像·侧望",
+      "alt": "黑衣人物在月下花房中侧望，书页漂浮在身旁。",
+      "src": "assets/portraits/03-moonlit-black-coat.webp",
+      "thumbnail": "assets/portraits/03-moonlit-black-coat-thumb.webp",
+      "width": 1312,
+      "height": 1199,
+      "kind": "generated-art-portrait",
+      "approved": true
+    },
+    {
+      "id": "04-moonlit-seated-portrait",
+      "style": "dreamscape",
+      "title": "月下花房黑衣人像·抱膝",
+      "alt": "黑衣人物抱膝坐在月下花房内，暖光与远处月色相映。",
+      "src": "assets/portraits/04-moonlit-seated-portrait.webp",
+      "thumbnail": "assets/portraits/04-moonlit-seated-portrait-thumb.webp",
+      "width": 1310,
+      "height": 1200,
+      "kind": "generated-art-portrait",
+      "approved": true
+    }
+  ]
+}
